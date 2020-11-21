@@ -2,7 +2,6 @@ var ejs = require('ejs'),
 	path = require('path'),
 	fs = require('fs-extra'),
 	walkSync = require('walk-sync'),
-	chmodr = require('chmodr'),
 	vm = require('vm'),
 	babel = require('@babel/core'),
 	async = require('async'),
@@ -261,7 +260,6 @@ module.exports = function(args, program) {
 	_.each(['JS_COMPONENT', 'WIDGET', 'JS_RUNTIME_STYLE'], function(type) {
 		var p = path.join(paths.resources, titaniumFolder, CONST.DIR[type]);
 		fs.mkdirpSync(p);
-		chmodr.sync(p, 0755);
 	});
 
 	// Copy in all developer assets, libs, and additional resources
@@ -369,7 +367,6 @@ module.exports = function(args, program) {
 		fs.removeSync(destPlatformDir);
 	}
 	fs.mkdirpSync(destPlatformDir);
-	chmodr.sync(destPlatformDir, 0755);
 	fs.writeFileSync(path.join(destPlatformDir, 'alloy_generated'), generateMessage('platform'));
 	sourcePlatformDirs.forEach(function (dir) {
 		var dirs = [ dir ];
@@ -394,7 +391,6 @@ module.exports = function(args, program) {
 		fs.removeSync(destI18NDir);
 	}
 	fs.mkdirpSync(destI18NDir);
-	chmodr.sync(destI18NDir, 0755);
 	fs.writeFileSync(path.join(destI18NDir, 'alloy_generated'), generateMessage('i18n'));
 	sourceI18NPaths.forEach(function (dir) {
 		if (fs.existsSync(dir)) {
@@ -494,6 +490,8 @@ module.exports = function(args, program) {
 	logger.info('');
 
 	generateAppJs(paths, compileConfig, restrictionPath, compilerMakeFile);
+
+	U.copyFileSync(path.join(alloyRoot, 'template', 'alloy.bootstrap.js'), path.join(paths.resources, titaniumFolder, 'alloy.bootstrap.js'));
 
 	// ALOY-905: workaround TiSDK < 3.2.0 iOS device build bug where it can't reference app.js
 	// in platform-specific folders, so we just copy the platform-specific one to
@@ -1073,14 +1071,10 @@ function parseAlloyComponent(view, dir, manifest, noView, fileRestriction) {
 			path.join(compileConfig.dir.resources, titaniumFolder, CONST.DIR.WIDGET,
 				manifest.id, widgetDir)
 		);
-		chmodr.sync(path.join(compileConfig.dir.resources, titaniumFolder, CONST.DIR.WIDGET,
-			manifest.id, widgetDir), 0755);
 		fs.mkdirpSync(
 			path.join(compileConfig.dir.resources, titaniumFolder, CONST.DIR.WIDGET,
 				manifest.id, widgetStyleDir)
 		);
-		chmodr.sync(path.join(compileConfig.dir.resources, titaniumFolder, CONST.DIR.WIDGET,
-			manifest.id, widgetStyleDir), 0755);
 
 		// [ALOY-967] merge "i18n" dir in widget folder
 		CU.mergeI18N(path.join(dir, 'i18n'), path.join(compileConfig.dir.project, 'i18n'), { override: false });
@@ -1109,7 +1103,6 @@ function parseAlloyComponent(view, dir, manifest, noView, fileRestriction) {
 
 	if (outputFormat === 'TS') {
 		fs.mkdirpSync(path.dirname(targetFilepath));
-		chmodr.sync(path.dirname(targetFilepath), 0755);
 		if (!noView) {
 			fs.writeFileSync(targetFilepath, code);
 		}
@@ -1198,7 +1191,6 @@ function parseAlloyComponent(view, dir, manifest, noView, fileRestriction) {
 		styleCode += _.template(fs.readFileSync(path.join(alloyRoot, 'template', 'wpath.js'), 'utf8'))({ WIDGETID: manifest.id });
 	}
 	fs.mkdirpSync(path.dirname(runtimeStylePath));
-	chmodr.sync(path.dirname(runtimeStylePath), 0755);
 	fs.writeFileSync(runtimeStylePath, styleCode);
 }
 
@@ -1282,7 +1274,6 @@ function processModels(dirs) {
 					titaniumFolder, 'widgets', manifest.id, 'models');
 			}
 			fs.mkdirpSync(modelRuntimeDir);
-			chmodr.sync(modelRuntimeDir, 0755);
 			fs.writeFileSync(path.join(modelRuntimeDir, casedBasename + '.js'), code);
 			models.push(basename);
 		});
@@ -1347,7 +1338,6 @@ function optimizeCompiledCode(alloyConfig, paths) {
 			var options = _.extend(_.clone(sourceMapper.OPTIONS_OUTPUT), {
 					plugins: [
 						[require('./ast/builtins-plugin'), compileConfig],
-						[require('./ast/handle-alloy-globals')],
 						[require('./ast/optimizer-plugin'), compileConfig.alloyConfig],
 					]
 				}),

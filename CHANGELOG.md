@@ -1,6 +1,42 @@
 # Alloy Release Notes
 
-### Unreleased items
+### Release 1.15.2
+
+### Bug Fixes
+
+* [ALOY-1737](https://jira.appcelerator.org/browse/ALOY-1737) - Set items directly in ListView [#966](https://github.com/appcelerator/alloy/pull/966)
+* [ALOY-1738](https://jira.appcelerator.org/browse/ALOY-1738) - Fix handling of Require tags [#967](https://github.com/appcelerator/alloy/pull/967)
+
+### Release 1.15.1
+
+## Improvements
+
+* [ALOY-1735](https://jira.appcelerator.org/browse/ALOY-1735) - Create VS Code settings.json file on project creation [#965](https://github.com/appcelerator/alloy/pull/965)
+
+### Bug Fixes
+
+* [ALOY-1736](https://jira.appcelerator.org/browse/ALOY-1736) - Ensure package.json has correct fields [#965](https://github.com/appcelerator/alloy/pull/965)
+
+### Release 1.15.0
+
+### New Features
+
+* [ALOY-1732](https://jira.appcelerator.org/browse/ALOY-1732) - Add ability to run in the background without UI [#959](https://github.com/appcelerator/alloy/pull/959)
+* [ALOY-1733](https://jira.appcelerator.org/browse/ALOY-1733) - Add template for Alloy + webpack usage [#963](https://github.com/appcelerator/alloy/pull/963)
+
+### Improvements
+
+* [ALOY-1256](https://jira.appcelerator.org/browse/ALOY-1256) - Allow using a Widget as a primary control in an XML View [#949](https://github.com/appcelerator/alloy/pull/949)
+* [ALOY-1253](https://jira.appcelerator.org/browse/ALOY-1253) - Support WPATH in widget XML view attribute values [#948](https://github.com/appcelerator/alloy/pull/948)
+
+### Bug Fixes
+
+* [ALOY-1720](https://jira.appcelerator.org/browse/ALOY-1720) - Version string comparison will break for SDK 10.0.0 [#960](https://github.com/appcelerator/alloy/pull/960)
+* [ALOY-1734](https://jira.appcelerator.org/browse/ALOY-1734) - Declare Alloy globals before execution of app.js/alloy.js [#964](https://github.com/appcelerator/alloy/pull/964)
+
+### Release 1.14.6
+
+* [ALOY-1721](https://jira.appcelerator.org/browse/ALOY-1721) - Alloy global can no longer be accessed in styles [#955](https://github.com/appcelerator/alloy/issues/955)
 
 ### Release 1.14.5
 

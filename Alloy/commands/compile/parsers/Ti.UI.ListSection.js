@@ -169,7 +169,7 @@ function parse(node, state, args) {
 			// keeping old style to preserve formatting for generated files
 			post: 'opts.animation ? ' +
 					spsCheck + sps + '.setItems(' + itemsVar + ', opts.animation) : ' +
-					spsCheck + sps + '.setItems(' + itemsVar + ');'
+					spsCheck + sps + '.items = ' + itemsVar + ';'
 		});
 	}
 
