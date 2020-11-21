@@ -74,7 +74,7 @@
     "@semantic-release/changelog": "^5.0.1",
     "@semantic-release/git": "^9.0.0",
     "@ti.types/ti.map": "^4.5.0",
-    "@ti.types/titanium": "^9.0.18",
+    "@types/titanium": "^9.2.1",
     "@types/backbone": "^1.4.1",
     "@types/underscore": "^1.9.4",
     "danger": "^10.5.0",
